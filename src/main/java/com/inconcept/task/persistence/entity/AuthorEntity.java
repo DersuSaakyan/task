@@ -11,18 +11,13 @@ public class AuthorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
+    @Column(name = "initials", nullable = false)
+    private String initials;
 
-    @Column(nullable = false)
-    private String country;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private String dateOfBirth;
-
-    @Column(name = "date_of_died", nullable = false)
-    private String dateOfDied;
-
+    public AuthorEntity(String initials) {
+        this.initials = initials;
+    }
 
     public Long getId() {
         return id;
@@ -32,35 +27,11 @@ public class AuthorEntity {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getInitials() {
+        return initials;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getDateOfDied() {
-        return dateOfDied;
-    }
-
-    public void setDateOfDied(String dateOfDied) {
-        this.dateOfDied = dateOfDied;
+    public void setInitials(String initials) {
+        this.initials = initials;
     }
 }

@@ -1,6 +1,7 @@
 package com.inconcept.task.persistence.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,10 +13,10 @@ public class BookEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "book_title", nullable = false)
     private String title;
 
-    @Column(name = "publish_date")
+    @Column(name = "year_of_publication")
     private String publishDate;
 
     @Column

@@ -6,6 +6,9 @@ import com.inconcept.task.persistence.entity.BookEntity;
 import com.inconcept.task.persistence.entity.RateEntity;
 import org.springframework.util.CollectionUtils;
 
+import java.awt.print.Book;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,10 +19,11 @@ public class BookDto {
     private String publishDate;
     private String publisher;
     private Double avgRating;
-    private Set<String> bookAuthors;
+    private String picUrl;
+    private List<String> bookAuthors = new ArrayList<>();
 
 
-    public BookDto(String title, String publishDate,String publisher, Double avgRating, Set<String> bookAuthors) {
+    public BookDto(String title, String publishDate, String publisher, Double avgRating, List<String> bookAuthors) {
         this.title = title;
         this.publishDate = publishDate;
         this.publisher = publisher;
@@ -29,6 +33,21 @@ public class BookDto {
 
     public BookDto() {
 
+    }
+
+    public BookDto(String title, String publishDate, String publisher, String picUrl) {
+        this.title = title;
+        this.publishDate = publishDate;
+        this.publisher = publisher;
+        this.picUrl = picUrl;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
     public String getPublisher() {
@@ -64,11 +83,11 @@ public class BookDto {
         this.avgRating = avgRating;
     }
 
-    public Set<String> getBookAuthors() {
+    public List<String> getBookAuthors() {
         return bookAuthors;
     }
 
-    public void setBookAuthors(Set<String> bookAuthors) {
+    public void setBookAuthors(List<String> bookAuthors) {
         this.bookAuthors = bookAuthors;
     }
 
@@ -96,8 +115,25 @@ public class BookDto {
 
         Set<AuthorEntity> authorEntitySet = bookEntity.getBookAuthors();
         if (!CollectionUtils.isEmpty(authorEntitySet)) {
-            bookDto.setBookAuthors(bookEntity.getBookAuthors().stream().map(AuthorEntity::getFullName).collect(Collectors.toSet()));
+            bookDto.setBookAuthors(bookEntity.getBookAuthors().stream().map(AuthorEntity::getInitials).collect(Collectors.toList()));
         }
         return bookDto;
+    }
+
+
+    public static List<BookEntity> castDtoToEntity(List<BookDto> bookDtos) {
+        return bookDtos.stream().map(b -> castDtoToEntity(b)).collect(Collectors.toList());
+    }
+
+    public static BookEntity castDtoToEntity(BookDto bookDto) {
+        BookEntity bookEntity = new BookEntity();
+        bookEntity.setTitle(bookDto.getTitle());
+        bookEntity.setPublishDate(bookDto.getPublishDate());
+        bookEntity.setPublisher(bookDto.getPublisher());
+        bookEntity.setPicUrl(bookDto.getPicUrl());
+        for (String author : bookDto.getBookAuthors()) {
+            bookEntity.getBookAuthors().add(new AuthorEntity(author));
+        }
+        return bookEntity;
     }
 }
