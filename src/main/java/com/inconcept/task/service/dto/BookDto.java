@@ -23,10 +23,10 @@ public class BookDto {
     private List<String> bookAuthors = new ArrayList<>();
 
 
-    public BookDto(String title, String publishDate, String publisher, Double avgRating, List<String> bookAuthors) {
+    public BookDto(String title, String publishDate, /*String publisher, */Double avgRating, List<String> bookAuthors) {
         this.title = title;
         this.publishDate = publishDate;
-        this.publisher = publisher;
+//        this.publisher = publisher;
         this.avgRating = avgRating;
         this.bookAuthors = bookAuthors;
     }
@@ -35,10 +35,10 @@ public class BookDto {
 
     }
 
-    public BookDto(String title, String publishDate, String publisher, String picUrl) {
+    public BookDto(String title, String publishDate, /*String publisher,*/ String picUrl) {
         this.title = title;
         this.publishDate = publishDate;
-        this.publisher = publisher;
+//        this.publisher = publisher;
         this.picUrl = picUrl;
     }
 
@@ -110,7 +110,7 @@ public class BookDto {
         BookDto bookDto = new BookDto();
         bookDto.setTitle(bookEntity.getTitle());
         bookDto.setPublishDate(bookEntity.getPublishDate());
-        bookDto.setPublisher(bookEntity.getPublisher());
+        bookDto.setPublisher(bookEntity.getPublisher().getFio());
         bookDto.setAvgRating(BookDto.getAvgRatingBook(bookEntity.getListBookRates()));
 
         Set<AuthorEntity> authorEntitySet = bookEntity.getBookAuthors();
@@ -129,11 +129,13 @@ public class BookDto {
         BookEntity bookEntity = new BookEntity();
         bookEntity.setTitle(bookDto.getTitle());
         bookEntity.setPublishDate(bookDto.getPublishDate());
-        bookEntity.setPublisher(bookDto.getPublisher());
+        bookDto.setPublisher(bookEntity.getPublisher().getFio());
         bookEntity.setPicUrl(bookDto.getPicUrl());
         for (String author : bookDto.getBookAuthors()) {
             bookEntity.getBookAuthors().add(new AuthorEntity(author));
         }
         return bookEntity;
     }
+
+
 }

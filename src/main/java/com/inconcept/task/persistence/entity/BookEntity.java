@@ -1,7 +1,6 @@
 package com.inconcept.task.persistence.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,11 +18,12 @@ public class BookEntity {
     @Column(name = "year_of_publication")
     private String publishDate;
 
-    @Column
-    private String publisher;
-
     @Column(name = "pic_url")
     private String picUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
+    private Publisher publisher;
 
     @OneToMany(mappedBy = "book", targetEntity = RateEntity.class, fetch = FetchType.LAZY)
     private List<RateEntity> listBookRates;
@@ -35,12 +35,11 @@ public class BookEntity {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<AuthorEntity> bookAuthors = new HashSet<>();
 
-
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 

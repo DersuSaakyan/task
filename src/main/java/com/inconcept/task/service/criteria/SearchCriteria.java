@@ -2,6 +2,7 @@ package com.inconcept.task.service.criteria;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 public class SearchCriteria {
     private Integer size;
@@ -52,6 +53,6 @@ public class SearchCriteria {
         int page = this.page == null ? 0 : this.page;
         int size = this.size == null ? 20 : this.size;
 
-        return PageRequest.of(page, size);
+        return PageRequest.of(page, size, Sort.by(sortField));
     }
 }

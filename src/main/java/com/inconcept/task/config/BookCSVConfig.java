@@ -40,9 +40,10 @@ public class BookCSVConfig {
                 BookDto bookDto = new BookDto(
                         csvRecord.get("Book-Title"),
                         csvRecord.get("Year-Of-Publication"),
-                        csvRecord.get("Publisher"),
+//                        csvRecord.get("Publisher"),
                         csvRecord.get("Image-URL-S")
                 );
+
                 bookDto.getBookAuthors().add(csvRecord.get("Book-Author"));
                 developerTutorialList.add(bookDto);
             }

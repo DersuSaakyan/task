@@ -67,7 +67,7 @@ public class BookService {
     public BookDto getBook(Long id) throws Exception {
         BookEntity bookEntity = bookRepository.findById(id)
                 .orElseThrow(() -> new Exception(String.format("Book which id %d not found", id)));
-        ;
+
 
         return BookDto.castEntityToDo(bookEntity);
     }
